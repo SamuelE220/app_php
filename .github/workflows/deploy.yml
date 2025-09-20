@@ -15,10 +15,9 @@ jobs:
       - name: Copy project to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.HOST_ }}
-          username: ${{ secrets.USERNAME_ }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          passphrase: 1234
           source: "."
           target: "~/php-app"
 
@@ -28,7 +27,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          passphrase: 1234
           script: |
             cd ~/php-app
             docker build -t php-app .
