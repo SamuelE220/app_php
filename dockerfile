@@ -1,9 +1,10 @@
-FROM openjdk:21-jdk-slim
+FROM php:8.2-apache
 
-WORKDIR /app
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-COPY clientes-1.jar app.jar
+COPY . /var/www/html/
 
-expose 8090
+RUN chown -R www-data:www-data /var/www/html
 
-Entrypoint ["java", "-jar", "app.jar"]
+EXPOSE 80
+CMD ["apache2-foreground"]
