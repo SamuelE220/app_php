@@ -9,27 +9,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout del repositorio
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2️⃣ Copiar proyecto al VPS
       - name: Copy project to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST_ }}
           username: ${{ secrets.USERNAME_ }}
           key: ${{ secrets.SSH_KEY }}
+          port: 22
           source: "."
-          target: "~/php-app"
+          target: "/home/ubuntu/php-app"
 
-
+      # 3️⃣ Ejecutar deploy en VPS
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.HOST_ }}
           username: ${{ secrets.USERNAME_ }}
           key: ${{ secrets.SSH_KEY }}
+          port: 22
           script: |
-            cd ~/php-app
+            # Entrar a la carpeta absoluta
+            cd /home/ubuntu/php-app
+
+            # Construir y correr el contenedor Docker
             docker build -t php-app .
             docker stop my-php-app || true
             docker rm my-php-app || true
