@@ -17,7 +17,13 @@ jobs:
         with:
           host: ${{ secrets.HOST_ }}
           username: ${{ secrets.USERNAME_ }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ -----BEGIN OPENSSH PRIVATE KEY-----
+                    b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+                    QyNTUxOQAAACCbbFZ/XzJUOxl2UPlAv8kIQGpZ1jZXbsh3TwTTzzzoXQAAAJiE146fhNeO
+                    nwAAAAtzc2gtZWQyNTUxOQAAACCbbFZ/XzJUOxl2UPlAv8kIQGpZ1jZXbsh3TwTTzzzoXQ
+                    AAAEAOqFT1KAE6qcSrQ9EU96Ly5w2xudIj6WE8cQFMeUY445tsVn9fMlQ7GXZQ+UC/yQhA
+                    alnWNlduyHdPBNPPPOhdAAAADmdpdGh1Yi1hY3Rpb25zAQIDBAUGBw==
+                    -----END OPENSSH PRIVATE KEY----- }}
           source: "."
           target: "~/php-app"
 
@@ -26,7 +32,13 @@ jobs:
         with:
           host: ${{ secrets.HOST_ }}
           username: ${{ secrets.USERNAME_ }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ -----BEGIN OPENSSH PRIVATE KEY-----
+              b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+              QyNTUxOQAAACCbbFZ/XzJUOxl2UPlAv8kIQGpZ1jZXbsh3TwTTzzzoXQAAAJiE146fhNeO
+              nwAAAAtzc2gtZWQyNTUxOQAAACCbbFZ/XzJUOxl2UPlAv8kIQGpZ1jZXbsh3TwTTzzzoXQ
+              AAAEAOqFT1KAE6qcSrQ9EU96Ly5w2xudIj6WE8cQFMeUY445tsVn9fMlQ7GXZQ+UC/yQhA
+              alnWNlduyHdPBNPPPOhdAAAADmdpdGh1Yi1hY3Rpb25zAQIDBAUGBw==
+              -----END OPENSSH PRIVATE KEY----- }}
           script: |
             cd ~/php-app
             docker build -t php-app .
