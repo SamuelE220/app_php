@@ -17,31 +17,21 @@ jobs:
         with:
           host: ${{ secrets.HOST_ }}
           username: ${{ secrets.USERNAME_ }}
-          key: ${{ -----BEGIN OPENSSH PRIVATE KEY-----
-                    b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-                    QyNTUxOQAAACCbbFZ/XzJUOxl2UPlAv8kIQGpZ1jZXbsh3TwTTzzzoXQAAAJiE146fhNeO
-                    nwAAAAtzc2gtZWQyNTUxOQAAACCbbFZ/XzJUOxl2UPlAv8kIQGpZ1jZXbsh3TwTTzzzoXQ
-                    AAAEAOqFT1KAE6qcSrQ9EU96Ly5w2xudIj6WE8cQFMeUY445tsVn9fMlQ7GXZQ+UC/yQhA
-                    alnWNlduyHdPBNPPPOhdAAAADmdpdGh1Yi1hY3Rpb25zAQIDBAUGBw==
-                    -----END OPENSSH PRIVATE KEY----- }}
+          key: ${{ secrets.SSH_KEY }}
           source: "."
           target: "~/php-app"
+
 
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.HOST_ }}
-          username: ${{ secrets.USERNAME_ }}
-          key: ${{ -----BEGIN OPENSSH PRIVATE KEY-----
-              b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-              QyNTUxOQAAACCbbFZ/XzJUOxl2UPlAv8kIQGpZ1jZXbsh3TwTTzzzoXQAAAJiE146fhNeO
-              nwAAAAtzc2gtZWQyNTUxOQAAACCbbFZ/XzJUOxl2UPlAv8kIQGpZ1jZXbsh3TwTTzzzoXQ
-              AAAEAOqFT1KAE6qcSrQ9EU96Ly5w2xudIj6WE8cQFMeUY445tsVn9fMlQ7GXZQ+UC/yQhA
-              alnWNlduyHdPBNPPPOhdAAAADmdpdGh1Yi1hY3Rpb25zAQIDBAUGBw==
-              -----END OPENSSH PRIVATE KEY----- }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/php-app
             docker build -t php-app .
             docker stop my-php-app || true
             docker rm my-php-app || true
             docker run -d --name my-php-app -p 80:80 php-app
+
