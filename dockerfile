@@ -1,10 +1,10 @@
 FROM php:8.2-apache
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+WORKDIR /home/php-app
 
-COPY . /var/www/html/
+COPY index.php /var/www/html
+COPY dist/output.css /var/www/html/dist/
 
-RUN chown -R www-data:www-data /var/www/html
+RUN a2enmod rewrite
 
 EXPOSE 80
-CMD ["apache2-foreground"]
