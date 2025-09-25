@@ -25,8 +25,8 @@ jobs:
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          host: ${{ secrets.HOST_ }}
+          username: ${{ secrets.USERNAME_ }}
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/php-app
