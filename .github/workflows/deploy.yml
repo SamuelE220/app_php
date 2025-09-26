@@ -1,35 +1,62 @@
-name: Deploy PHP to VPS
+name: Deploy to VPS
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
+      # 1️⃣ Checkout del repositorio
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Copy project to VPS
-        uses: appleboy/scp-action@v0.1.7
+      # 2️⃣ Debug: verificar que los secrets están definidos
+      - name: Check secrets
+        run: |
+          echo "HOST_VPS=${{ secrets.HOST_VPS }}"
+          echo "USERNAME_VPS=${{ secrets.USERNAME_VPS }}"
+          if [ -z "${{ secrets.SSH_KEY }}" ]; then
+            echo "SSH_KEY is empty!"
+            exit 1
+          else
+            echo "SSH_KEY is set ✅"
+          fi
+
+      # 3️⃣ Copiar archivos al VPS
+      - name: Copy files to VPS
+        uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          host: ${{ secrets.HOST_VPS }}
+          username: ${{ secrets.USERNAME_VPS }}
           key: ${{ secrets.SSH_KEY }}
           source: "."
-          target: "~/php-app"
+          target: "/home/ubuntu/Proyectophp/pruebagit/app_php"
 
-      - name: Deploy on VPS
-        uses: appleboy/ssh-action@v1.2.0
+      # 4️⃣ Ejecutar comandos de deploy en VPS
+      - name: Run deploy commands on VPS
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          host: ${{ secrets.HOST_VPS }}
+          username: ${{ secrets.USERNAME_VPS }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd ~/php-app
-            docker build -t php-app .
-            docker stop my-php-app || true
-            docker rm my-php-app || true
-            docker run -d --name my-php-app -p 80:80 php-app
+            echo "Verificando que estamos en el VPS correcto..."
+            whoami
+            pwd
+
+            # Navegar a la carpeta del proyecto
+            cd /home/ubuntu/Proyectophp/pruebagit/app_php
+            
+            # Construir la nueva imagen de Docker
+            docker build -t cliente-docker-image .
+
+            # Detener y eliminar el contenedor existente si está corriendo
+            docker stop cliente-app || true
+            docker rm cliente-app || true
+
+            # Ejecutar el nuevo contenedor con la nueva imagen
+            docker run -d --name cliente-app -p 8091:80 cliente-docker-image
+

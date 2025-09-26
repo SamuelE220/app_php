@@ -41,7 +41,7 @@
     <!-- Header con desarrolladores -->
     <header class="gradient-bg text-white py-8 px-4">
         <div class="container mx-auto text-center">
-            <h1 class="text-4xl font-bold mb-2 animate-pulse">Sistema de Registro de Clientes</h1>
+            <h1 class="text-4xl font-bold mb-2 animate-pulse">SistEEEEEEEEEEEema de Registro AAAAAAAAAAAAAAde Materias</h1>
             <p class="text-xl mb-8">ColibriHub - Soluciones Tecnológicas chupala gabriel que jodes</p>
         </div>
     </header>
@@ -51,7 +51,7 @@
         <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden card-hover animate-fadeIn" style="animation-delay: 0.6s;">
             <!-- Encabezado del formulario -->
             <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white">
-                <h2 class="text-2xl font-bold">Formulario de Registro</h2>
+                <h2 class="text-2xl font-bold">FormularEEEEEEEEEEEEEEEio de Registro</h2>
                 <p class="opacity-90">Complete la información del nuevo cliente</p>
             </div>
             
