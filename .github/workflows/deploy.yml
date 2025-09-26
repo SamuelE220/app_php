@@ -22,7 +22,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           source: "."
-          target: "/home/ubuntu/php-app"
+          target: "/home/ubuntu/Proyectophp/mamadacongit/app_php"
 
       # 3️⃣ Ejecutar deploy en VPS
       - name: Deploy on VPS
@@ -34,11 +34,11 @@ jobs:
           port: 22
           script: |
             # Entrar a la carpeta absoluta
-            cd /home/ubuntu/php-app
+            cd /home/ubuntu/Proyectophp/mamadacongit/app_php
 
             # Construir y correr el contenedor Docker
             docker build -t php-app .
             docker stop my-php-app || true
             docker rm my-php-app || true
-            docker run -d --name my-php-app -p 80:80 php-app
+            docker run -d --name my-php-app -p 91:80 php-app
 
